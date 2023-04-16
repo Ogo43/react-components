@@ -1,55 +1,62 @@
+import "boxicons";
+import { search_data } from "../data";
+import List from "./List";
+import Icon from "./Icon";
+import GoogleLogo from "./GoogleLogo";
 
-const SearchBox = () => {
+const SearchBox = ({ user_input, onChangeHandler, onSubmit, data }) => {
   return (
     <>
       <main>
         <section>
-        <h2>
-            <span className="G">G</span><span className="o">o</span><span className="o">o</span>
-            <span className="g">g</span><span className="l">l</span><span className="e">e</span>
-        </h2>
-
-        <div>
-            <span className="search-logo"><i class='bx bx-search-alt-2'></i></span>
-            <span className="microphone-logo"><i class='bx bxs-microphone'></i></span>
-            <span className="camera-logo"><i class='bx bx-camera'></i></span>
-        </div>
-
-          <div>
-            <div>
-              <h4>Google Search</h4>
-              <h4>I'm Feeling Lucky</h4>
-            </div>
+          <GoogleLogo />
+          <div className="search-general">
+            <span className="search-logo">
+              <Icon name="search-alt-2" />
+            </span>
+            <form className="input-form" onSubmit={onSubmit}>
+              <input
+                type="text"
+                className="input-text"
+                onChange={onChangeHandler}
+                value={user_input}
+              />
+            </form>
+            <span className="microphone-logo">
+              <Icon name="microphone" />
+            </span>
+            <span className="camera-logo">
+              <Icon name="camera" />
+            </span>
+          </div>
+          {/* search input will be rendered here */}
+          {data.map((el, index) => {
+            return <p className="list" key={index}>{el}</p>;
+          })}
+          <div className="search-below">
+            <h4 className="google-search">Google Search</h4>
+            <h4 className="excited">I'm Feeling Lucky</h4>
           </div>
 
-        <div>
+          <div className="offering">
             <div>
               <h5>Google offered in:</h5>
             </div>
 
-            <div>
-              <ul>
-                <li>
-                  <a href="https://www.google.com/setprefs?sig=0_qBp8Udzqola-OolMa6S6Or3zZZc%3D&hl=ha&source=homepage&sa=X&ved=0ahUKEwi41IjNq6D-AhWI-aQKHUvcChIQ2ZgBCBQ">
-                    Hausa
-                    </a>
-                  <a href="https://www.google.com/setprefs?sig=0_qBp8Udzqola-OolMa6S6Or3zZZc%3D&hl=ig&source=homepage&sa=X&ved=0ahUKEwi41IjNq6D-AhWI-aQKHUvcChIQ2ZgBCBU">
-                    Igbo
-                    </a>
-                  <a href="https://www.google.com/setprefs?sig=0_qBp8Udzqola-OolMa6S6Or3zZZc%3D&hl=yo&source=homepage&sa=X&ved=0ahUKEwi41IjNq6D-AhWI-aQKHUvcChIQ2ZgBCBY">
-                    Èdè Yorùbá
-                    </a>
-                  <a href="https://www.google.com/setprefs?sig=0_qBp8Udzqola-OolMa6S6Or3zZZc%3D&hl=pcm&source=homepage&sa=X&ved=0ahUKEwi41IjNq6D-AhWI-aQKHUvcChIQ2ZgBCBc">
-                    Nigerian Pidgin
-                    </a>
-                </li>
+            <div className="lang">
+              <ul className="lang-list">
+                {search_data.map((data, index) => {
+                  return (
+                    <List name={data.name} address={data.address} key={index} />
+                  );
+                })}
               </ul>
             </div>
           </div>
         </section>
       </main>
     </>
-  )
-}
+  );
+};
 
 export default SearchBox;
